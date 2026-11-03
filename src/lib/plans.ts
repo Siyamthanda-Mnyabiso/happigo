@@ -1,4 +1,6 @@
-export type PlanId = 'smb' | 'enterprise';
+import type { PlanId } from './supabase/database.types';
+
+export type { PlanId };
 
 export type Plan = {
   id: PlanId;

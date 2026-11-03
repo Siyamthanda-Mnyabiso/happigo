@@ -7,6 +7,9 @@
   --line: #ede6e1;
   --card: #f7f2ef;
   --danger: #d92e21;
+  --brand-hover: #e03400;
+  --on-dark: #e6dcd4;
+  --nav-icon: #c9bfb8;
 }
 
 @theme inline {
@@ -16,6 +19,9 @@
   --color-line: var(--line);
   --color-card: var(--card);
   --color-danger: var(--danger);
+  --color-brand-hover: var(--brand-hover);
+  --color-on-dark: var(--on-dark);
+  --color-nav-icon: var(--nav-icon);
   --font-sans: var(--font-figtree);
 }
 

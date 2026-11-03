@@ -1,11 +1,11 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
-
-const PUBLIC = ['/restaurant/sign-in'];
+import type { Database } from '@/lib/supabase/database.types';
+import { areaFor } from '@/lib/routes';
 
 export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });
-  const supabase = createServerClient(
+  const supabase = createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
@@ -21,10 +21,13 @@ export async function proxy(request: NextRequest) {
   );
   const { data } = await supabase.auth.getUser();
   const path = request.nextUrl.pathname;
-  if (!data.user && !PUBLIC.includes(path)) {
-    return NextResponse.redirect(new URL('/restaurant/sign-in', request.url));
+  const area = areaFor(path);
+  const isPublic = (area?.public as readonly string[] | undefined)?.includes(path);
+  if (area && !data.user && !isPublic) {
+    return NextResponse.redirect(new URL(area.signIn, request.url));
   }
   return response;
 }
 
+// Must be a literal for Next to read it. Add each role area from lib/routes.ts here.
 export const config = { matcher: ['/restaurant/:path*'] };

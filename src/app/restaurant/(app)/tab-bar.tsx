@@ -4,12 +4,13 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { BagIcon, ChartBarIcon, ForkKnifeIcon, StorefrontIcon } from '@phosphor-icons/react';
 import { clsx } from 'clsx';
+import { routes } from '@/lib/routes';
 
 const TABS = [
-  { href: '/restaurant/orders', label: 'Orders', Icon: BagIcon },
-  { href: '/restaurant/menu', label: 'Menu', Icon: ForkKnifeIcon },
-  { href: '/restaurant/earnings', label: 'Earnings', Icon: ChartBarIcon },
-  { href: '/restaurant/store', label: 'Store', Icon: StorefrontIcon },
+  { href: routes.restaurant.orders, label: 'Orders', Icon: BagIcon },
+  { href: routes.restaurant.menu, label: 'Menu', Icon: ForkKnifeIcon },
+  { href: routes.restaurant.earnings, label: 'Earnings', Icon: ChartBarIcon },
+  { href: routes.restaurant.store, label: 'Store', Icon: StorefrontIcon },
 ];
 
 export function TabBar() {
@@ -29,7 +30,7 @@ export function TabBar() {
             aria-current={active ? 'page' : undefined}
             className={clsx(
               'flex size-12 items-center justify-center rounded-full focus-visible:outline-2 focus-visible:outline-white',
-              active ? 'bg-brand text-white' : 'text-[#c9bfb8]',
+              active ? 'bg-brand text-white' : 'text-nav-icon',
             )}
           >
             <Icon weight="bold" className="size-6" aria-hidden />

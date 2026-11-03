@@ -2,7 +2,7 @@
 
 import { useActionState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Field } from '@/components/ui/screen';
+import { Field } from '@/components/ui/form';
 import { signIn, type SignInState } from './actions';
 
 export function SignInForm() {

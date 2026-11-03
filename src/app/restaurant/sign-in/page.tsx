@@ -1,4 +1,4 @@
-import { Screen } from '@/components/ui/screen';
+import { Screen } from '@/components/ui/layout';
 import { SignInForm } from './sign-in-form';
 
 export default function SignInPage() {

@@ -1,4 +1,4 @@
-import { Screen } from '@/components/ui/screen';
+import { Screen } from '@/components/ui/layout';
 import { BankForm } from './bank-form';
 
 export default function ConnectBankPage() {

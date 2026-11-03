@@ -3,7 +3,7 @@
 import { useActionState } from 'react';
 import { LockIcon } from '@phosphor-icons/react';
 import { Button } from '@/components/ui/button';
-import { Field } from '@/components/ui/screen';
+import { Field, Select } from '@/components/ui/form';
 import { BANKS } from '@/lib/validation/bank';
 import { saveBank, type BankState } from './actions';
 
@@ -12,26 +12,14 @@ export function BankForm() {
   const e = state.errors ?? {};
   return (
     <form action={action} noValidate className="flex flex-1 flex-col">
-      <div className="mb-5">
-        <label htmlFor="f-bank" className="mb-2 block text-base font-semibold">
-          Bank
-        </label>
-        <select
-          id="f-bank"
-          name="bank"
-          defaultValue=""
-          aria-invalid={!!e.bank}
-          className="h-14 w-full rounded-2xl bg-card px-4 text-base focus-visible:outline-2 focus-visible:outline-brand"
-        >
-          <option value="" disabled>
-            Choose your bank
-          </option>
-          {BANKS.map((b) => (
-            <option key={b}>{b}</option>
-          ))}
-        </select>
-        {e.bank && <p className="mt-1 text-base text-danger">{e.bank}</p>}
-      </div>
+      <Select label="Bank" name="bank" defaultValue="" error={e.bank}>
+        <option value="" disabled>
+          Choose your bank
+        </option>
+        {BANKS.map((b) => (
+          <option key={b}>{b}</option>
+        ))}
+      </Select>
       <Field
         label="Account holder"
         name="accountHolder"

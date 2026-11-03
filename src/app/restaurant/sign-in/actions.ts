@@ -2,6 +2,7 @@
 
 import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
+import { routes } from '@/lib/routes';
 
 export type SignInState = { error?: string };
 
@@ -12,5 +13,5 @@ export async function signIn(_prev: SignInState, formData: FormData): Promise<Si
   const supabase = await createClient();
   const { error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) return { error: 'Email or password is not right' };
-  redirect('/restaurant/orders');
+  redirect(routes.restaurant.orders);
 }

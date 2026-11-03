@@ -1,6 +1,6 @@
 import { CheckIcon } from '@phosphor-icons/react/dist/ssr';
 import { Button } from '@/components/ui/button';
-import { Screen } from '@/components/ui/screen';
+import { Screen } from '@/components/ui/layout';
 import { PLAN_LIST } from '@/lib/plans';
 import { savePlan } from './actions';
 

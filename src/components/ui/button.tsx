@@ -4,7 +4,7 @@ import { clsx } from 'clsx';
 const base =
   'inline-flex h-14 w-full items-center justify-center rounded-full px-6 text-base font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:opacity-60';
 const styles = {
-  primary: 'bg-brand text-white hover:bg-[#e03400]',
+  primary: 'bg-brand text-white hover:bg-brand-hover',
   secondary: 'border border-line bg-white text-ink hover:bg-card',
 };
 
