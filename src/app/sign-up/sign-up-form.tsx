@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { EnvelopeIcon, LockIcon, UserIcon } from '@phosphor-icons/react';
 import { useActionState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Field } from '@/components/ui/form';
@@ -35,6 +36,7 @@ export function SignUpForm({ next }: { next: string }) {
         name="fullName"
         autoComplete="name"
         placeholder="Your name"
+        icon={<UserIcon className="size-[22px]" />}
         error={e.fullName}
       />
       <Field
@@ -42,7 +44,8 @@ export function SignUpForm({ next }: { next: string }) {
         name="email"
         type="email"
         autoComplete="email"
-        placeholder="you@email.com"
+        placeholder="name@email.com"
+        icon={<EnvelopeIcon className="size-[22px]" />}
         error={e.email}
       />
       <Field
@@ -51,6 +54,7 @@ export function SignUpForm({ next }: { next: string }) {
         type="password"
         autoComplete="new-password"
         placeholder="At least 8 characters"
+        icon={<LockIcon className="size-[22px]" />}
         error={e.password}
       />
       {e.form && (
@@ -58,7 +62,7 @@ export function SignUpForm({ next }: { next: string }) {
           {e.form}
         </p>
       )}
-      <Button type="submit" disabled={pending}>
+      <Button type="submit" disabled={pending} className="shadow-[0_8px_8px_rgba(247,59,3,0.35)]">
         {pending ? 'Creating account' : 'Create account'}
       </Button>
     </form>

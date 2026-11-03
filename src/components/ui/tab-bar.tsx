@@ -16,7 +16,7 @@ export function TabBar({ tabs }: { tabs: readonly Tab[] }) {
       className="fixed inset-x-0 bottom-4 mx-auto flex h-[68px] w-[calc(100%-32px)] max-w-[398px] items-center justify-around rounded-full bg-ink px-3"
     >
       {tabs.map(({ href, label, Icon }) => {
-        const active = path === href || path.startsWith(`${href}/`);
+        const active = path === href || (href !== '/' && path.startsWith(`${href}/`));
         return (
           <Link
             key={href}

@@ -19,7 +19,7 @@ export async function loadCartView() {
       .maybeSingle(),
     supabase
       .from('menu_items')
-      .select('id, name, price_cents')
+      .select('id, name, price_cents, image_url, category')
       .eq('branch_id', cart.branchId)
       .eq('available', true)
       .in(
@@ -37,7 +37,7 @@ export async function loadCartView() {
 
   const lines = cart.lines.flatMap((l) => {
     const item = items?.find((i) => i.id === l.id);
-    return item ? [{ item, qty: l.qty }] : [];
+    return item ? [{ item, qty: l.qty, image_url: item.image_url, category: item.category }] : [];
   });
   if (!lines.length) return null;
   const food = lines.reduce((sum, l) => sum + l.item.price_cents * l.qty, 0);
