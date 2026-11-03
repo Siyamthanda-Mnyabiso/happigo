@@ -1,12 +1,16 @@
 import { CartBar } from './cart-bar';
 import { CustomerTabs } from './customer-tabs';
+import { ShopHeader } from './shop-header';
 
 export default function ShopLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mx-auto min-h-dvh w-full max-w-[430px] px-6 pb-44 pt-6">
-      {children}
+    <>
+      <ShopHeader />
+      <div className="mx-auto w-full max-w-6xl px-5 pb-44 pt-6 md:px-8 md:pb-28">{children}</div>
       <CartBar />
-      <CustomerTabs />
-    </div>
+      <div className="md:hidden">
+        <CustomerTabs />
+      </div>
+    </>
   );
 }

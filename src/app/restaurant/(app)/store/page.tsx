@@ -9,7 +9,7 @@ export default async function StorePage() {
   const { supabase, restaurant, branch } = await getMainBranch();
   const { data: r } = await supabase
     .from('restaurants')
-    .select('name, cuisine, delivery_fee_cents')
+    .select('name, cuisine, delivery_fee_cents, image_url')
     .eq('id', restaurant.id)
     .single();
   return (
@@ -28,6 +28,7 @@ export default async function StorePage() {
         cuisine={r?.cuisine ?? ''}
         address={branch?.address ?? ''}
         deliveryFee={toRandInput(r?.delivery_fee_cents ?? 1500)}
+        imageUrl={r?.image_url ?? null}
         accepting={branch?.accepting_orders ?? false}
       />
       <ul className="mt-8 divide-y divide-line border-y border-line">

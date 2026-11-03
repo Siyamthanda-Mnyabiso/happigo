@@ -11,7 +11,7 @@ export async function CartBar() {
   return (
     <Link
       href={routes.customer.cart}
-      className="fixed inset-x-0 bottom-[100px] mx-auto flex h-14 w-[calc(100%-32px)] max-w-[398px] items-center justify-between rounded-full bg-brand px-6 font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+      className="fixed inset-x-0 bottom-[100px] z-10 mx-auto md:bottom-6 flex h-14 w-[calc(100%-32px)] max-w-[398px] md:max-w-md items-center justify-between rounded-full bg-brand px-6 font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
     >
       <span className="flex items-center gap-2">
         <BagIcon weight="bold" className="size-6" aria-hidden /> View cart
