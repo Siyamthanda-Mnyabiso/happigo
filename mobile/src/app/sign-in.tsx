@@ -3,12 +3,12 @@ import { Lock, User } from 'phosphor-react-native';
 import { useState } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { AuthField } from '@/components/auth-field';
-import { BrandHeader } from '@/components/brand-header';
-import { Button, Text } from '@/components/ui';
+import { AuthField } from '@native/auth-field';
+import { BrandHeader } from '@native/brand-header';
+import { Button, Text } from '@native/ui';
 import { safeNext } from '@/lib/require-auth';
-import { supabase } from '@/lib/supabase';
-import { colors } from '@/theme';
+import { supabase } from '@native/supabase';
+import { colors } from '@native/theme';
 
 export default function SignInScreen() {
   const insets = useSafeAreaInsets();

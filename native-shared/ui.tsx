@@ -1,7 +1,7 @@
 import { ArrowLeft } from 'phosphor-react-native';
 import { router } from 'expo-router';
 import { Pressable, Text as RNText, type TextProps, StyleSheet, View, type ViewStyle } from 'react-native';
-import { colors, shadow } from '@/theme';
+import { colors, shadow } from './theme';
 
 const FAMILY = {
   regular: 'Figtree_400Regular',

@@ -4,10 +4,10 @@ import { useState } from 'react';
 import { FlatList, Pressable, ScrollView, TextInput, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { RestaurantCard } from '@/components/restaurant-card';
-import { BackButton, Pill, Text } from '@/components/ui';
+import { BackButton, Pill, Text } from '@native/ui';
 import { useRestaurants } from '@/lib/data';
 import { HOME_CUISINES } from '@core/food';
-import { colors } from '@/theme';
+import { colors } from '@native/theme';
 
 export default function SearchScreen() {
   const insets = useSafeAreaInsets();

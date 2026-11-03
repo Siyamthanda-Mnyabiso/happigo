@@ -1,7 +1,7 @@
 import { Image } from 'expo-image';
 import { StyleSheet, View } from 'react-native';
 import { categoryPhoto, emojiFor, tintIndex } from '@core/food';
-import { Text } from './ui';
+import { Text } from '@native/ui';
 
 /** The five photos from the design. Keys match what categoryPhoto() returns. */
 const BUNDLED = {

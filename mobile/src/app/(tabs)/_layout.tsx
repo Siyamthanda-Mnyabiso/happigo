@@ -2,7 +2,7 @@ import { Tabs } from 'expo-router';
 import { House, MagnifyingGlass, Receipt, User } from 'phosphor-react-native';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { colors, shadow } from '@/theme';
+import { colors, shadow } from '@native/theme';
 
 const ICONS = { index: House, search: MagnifyingGlass, orders: Receipt, profile: User } as const;
 const LABELS = { index: 'Home', search: 'Search', orders: 'Orders', profile: 'Profile' } as const;

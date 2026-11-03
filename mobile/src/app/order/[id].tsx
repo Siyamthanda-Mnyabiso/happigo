@@ -5,14 +5,14 @@ import { ScrollView, View } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Totals } from '@/components/totals';
-import { BackButton, Text } from '@/components/ui';
-import { LOGO_XML } from '@/lib/logo-xml';
+import { BackButton, Text } from '@native/ui';
+import { LOGO_XML } from '@native/logo-xml';
 import { useRequireAuth } from '@/lib/require-auth';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@native/supabase';
 import { isActive, LIT, STATUS_COPY, STEPS } from '@core/customer-status';
 import { formatRand } from '@core/money';
 import { orderCode } from '@core/orders';
-import { colors } from '@/theme';
+import { colors } from '@native/theme';
 
 export default function OrderScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();

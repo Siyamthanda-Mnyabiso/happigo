@@ -1,5 +1,5 @@
 import { View } from 'react-native';
-import { BackButton, Text } from './ui';
+import { BackButton, Text } from '@native/ui';
 
 /** Back button on the left, title centred. Used on cart and checkout. */
 export function PageHeader({ title }: { title: string }) {

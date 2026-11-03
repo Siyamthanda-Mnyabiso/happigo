@@ -5,15 +5,15 @@ import { useState } from 'react';
 import { KeyboardAvoidingView, Platform, Pressable, ScrollView, TextInput, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { PageHeader } from '@/components/page-header';
-import { Text } from '@/components/ui';
+import { Text } from '@native/ui';
 import { useAddresses } from '@/lib/account';
 import { useCart } from '@/lib/cart';
 import { useCartView } from '@/lib/data';
 import { useRequireAuth } from '@/lib/require-auth';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@native/supabase';
 import { TIP_OPTIONS_CENTS } from '@core/cart';
 import { formatRand } from '@core/money';
-import { colors, shadow } from '@/theme';
+import { colors, shadow } from '@native/theme';
 
 const box = { height: 56, borderRadius: 16, backgroundColor: colors.card, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, gap: 12 } as const;
 const input = { flex: 1, fontFamily: 'Figtree_400Regular', fontSize: 16, color: colors.ink, height: 56 } as const;

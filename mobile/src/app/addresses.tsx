@@ -2,10 +2,10 @@ import { MapPin } from 'phosphor-react-native';
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { PageHeader } from '@/components/page-header';
-import { Text } from '@/components/ui';
+import { Text } from '@native/ui';
 import { useAddresses } from '@/lib/account';
 import { useRequireAuth } from '@/lib/require-auth';
-import { colors } from '@/theme';
+import { colors } from '@native/theme';
 
 export default function AddressesScreen() {
   const insets = useSafeAreaInsets();

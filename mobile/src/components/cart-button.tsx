@@ -2,8 +2,8 @@ import { router } from 'expo-router';
 import { Handbag } from 'phosphor-react-native';
 import { Pressable, View } from 'react-native';
 import { useCart } from '@/lib/cart';
-import { colors } from '@/theme';
-import { Text } from './ui';
+import { colors } from '@native/theme';
+import { Text } from '@native/ui';
 
 export function CartButton() {
   const { count } = useCart();

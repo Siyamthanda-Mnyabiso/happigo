@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { useAuth } from './auth';
-import { supabase } from './supabase';
+import { useAuth } from '@native/auth';
+import { supabase } from '@native/supabase';
 
 /** The signed-in customer's saved addresses, newest first. Empty when signed out. */
 export function useAddresses() {

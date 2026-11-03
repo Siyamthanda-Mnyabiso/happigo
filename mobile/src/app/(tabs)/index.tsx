@@ -7,12 +7,12 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { CartButton } from '@/components/cart-button';
 import { photoSource, PROMO_BANNER } from '@/components/food-image';
 import { RestaurantCard } from '@/components/restaurant-card';
-import { Text } from '@/components/ui';
-import { useAuth } from '@/lib/auth';
+import { Text } from '@native/ui';
+import { useAuth } from '@native/auth';
 import { useAddresses } from '@/lib/account';
 import { useRestaurants } from '@/lib/data';
 import { HOME_CUISINES } from '@core/food';
-import { colors } from '@/theme';
+import { colors } from '@native/theme';
 
 export default function HomeScreen() {
   const insets = useSafeAreaInsets();

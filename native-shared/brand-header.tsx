@@ -1,7 +1,7 @@
 import { View } from 'react-native';
 import { SvgXml } from 'react-native-svg';
-import { LOGO_XML } from '@/lib/logo-xml';
-import { colors } from '@/theme';
+import { LOGO_XML } from './logo-xml';
+import { colors } from './theme';
 
 /** The orange rounded header with the HappiGo logo, from the sign in design. */
 export function BrandHeader({ topInset }: { topInset: number }) {

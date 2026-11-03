@@ -2,9 +2,9 @@ import { router } from 'expo-router';
 import { Pressable, View } from 'react-native';
 import { formatRand } from '@core/money';
 import type { RestaurantSummary } from '@/lib/data';
-import { colors } from '@/theme';
+import { colors } from '@native/theme';
 import { FoodImage } from './food-image';
-import { Text } from './ui';
+import { Text } from '@native/ui';
 
 /** Photo card from the design. `wide` is the full width version used in search results. */
 export function RestaurantCard({ r, width, height }: { r: RestaurantSummary; width?: number; height: number }) {
