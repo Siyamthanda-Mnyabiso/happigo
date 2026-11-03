@@ -14,6 +14,7 @@ const eslintConfig = defineConfig([
     'next-env.d.ts',
     'mobile/**',
     'driver/**',
+    'restaurant/**',
     'native-shared/**',
   ]),
 ]);

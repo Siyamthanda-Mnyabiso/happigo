@@ -78,3 +78,24 @@ jobs:
       # Shared web logic (../src/lib) and shared native code (../native-shared) are checked here too.
       - run: npm run typecheck
       - run: npm run lint
+
+  restaurant:
+    name: Restaurant app typecheck and lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: restaurant
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: restaurant/package-lock.json
+      - run: npm ci
+      # The shared native code in ../native-shared resolves react and friends from this app's node_modules.
+      - run: ln -s "$PWD/node_modules" ../native-shared/node_modules
+      # Shared web logic (../src/lib) and shared native code (../native-shared) are checked here too.
+      - run: npm run typecheck
+      - run: npm run lint
