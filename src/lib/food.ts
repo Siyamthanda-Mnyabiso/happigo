@@ -25,11 +25,16 @@ const TINTS = [
   'from-[#fde4c8] to-[#f9a86b]',
 ] as const;
 
-/** The same name always gets the same warm tint, so a list of photo-less cards still looks varied. */
-export function tintFor(seed: string): (typeof TINTS)[number] {
+/** Which of the four warm tints a name gets. The same name always gets the same one. */
+export function tintIndex(seed: string): number {
   let h = 0;
   for (const ch of seed) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
-  return TINTS[h % TINTS.length];
+  return h % TINTS.length;
+}
+
+/** The Tailwind classes for that tint (web). The mobile app maps the same index to colours. */
+export function tintFor(seed: string): (typeof TINTS)[number] {
+  return TINTS[tintIndex(seed)];
 }
 
 const PHOTOS: [RegExp, string][] = [
