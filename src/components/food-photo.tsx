@@ -1,11 +1,14 @@
 import { clsx } from 'clsx';
 import Image from 'next/image';
-import { emojiFor, tintFor } from '@/lib/food';
+import { categoryPhoto, emojiFor, tintFor } from '@/lib/food';
 
-/** A food photo that fills its (relative, sized) parent. With no photo it shows a warm tinted tile and an emoji. */
+/**
+ * A food photo that fills its (relative, sized) parent. Order of preference: the restaurant's own
+ * photo, then the matching photo from the design, then a tinted emoji tile.
+ */
 export function FoodPhoto({
   src,
-  alt,
+  alt = '',
   hint,
   seed,
   sizes,
@@ -13,16 +16,24 @@ export function FoodPhoto({
   priority,
 }: {
   src: string | null;
-  alt: string;
+  alt?: string;
   hint: string | null;
   seed: string;
   sizes: string;
   emojiClass?: string;
   priority?: boolean;
 }) {
-  if (src)
+  const shown = src ?? categoryPhoto(hint);
+  if (shown)
     return (
-      <Image src={src} alt={alt} fill sizes={sizes} priority={priority} className="object-cover" />
+      <Image
+        src={shown}
+        alt={alt}
+        fill
+        sizes={sizes}
+        priority={priority}
+        className="object-cover"
+      />
     );
   return (
     <div

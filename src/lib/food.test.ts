@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { emojiFor, tintFor } from './food';
+import { categoryPhoto, emojiFor, tintFor } from './food';
 
 describe('food visuals', () => {
   it('picks an emoji from the cuisine or category', () => {
@@ -13,5 +13,13 @@ describe('food visuals', () => {
   });
   it('gives the same tint for the same name', () => {
     expect(tintFor('Test Burger Joint')).toBe(tintFor('Test Burger Joint'));
+  });
+
+  it('uses the design photos for matching food and nothing for the rest', () => {
+    expect(categoryPhoto('Burgers')).toBe('/food/burgers.jpg');
+    expect(categoryPhoto('Classic Cheeseburger')).toBe('/food/burgers.jpg');
+    expect(categoryPhoto('Indian curry')).toBe('/food/curry.jpg');
+    expect(categoryPhoto('Drinks Cola')).toBeNull();
+    expect(categoryPhoto(null)).toBeNull();
   });
 });
