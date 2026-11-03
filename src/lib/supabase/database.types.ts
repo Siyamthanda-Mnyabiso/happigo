@@ -39,6 +39,7 @@ export const COLUMNS = {
     lat: true,
     lng: true,
   },
+  suspensions: { subject_id: true, kind: true, created_at: true },
   subscriptions: {
     restaurant_id: true,
     plan: true,

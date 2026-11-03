@@ -549,12 +549,87 @@ export type Database = {
           },
         ];
       };
+      suspensions: {
+        Row: {
+          created_at: string;
+          kind: string;
+          subject_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          kind: string;
+          subject_id: string;
+        };
+        Update: {
+          created_at?: string;
+          kind?: string;
+          subject_id?: string;
+        };
+        Relationships: [];
+      };
     };
     Views: {
       [_ in never]: never;
     };
     Functions: {
       accept_delivery: { Args: { oid: string }; Returns: undefined };
+      admin_cancel_order: { Args: { oid: string }; Returns: undefined };
+      admin_customers: {
+        Args: never;
+        Returns: {
+          email: string;
+          id: string;
+          joined: string;
+          last_order: string;
+          name: string;
+          orders: number;
+          spent_cents: number;
+        }[];
+      };
+      admin_drivers: {
+        Args: never;
+        Returns: {
+          deliveries_this_month: number;
+          earned_this_month_cents: number;
+          id: string;
+          name: string;
+          phone: string;
+          status: string;
+          vehicle: string;
+        }[];
+      };
+      admin_order: { Args: { oid: string }; Returns: Json };
+      admin_orders: {
+        Args: { filter?: string; search?: string };
+        Returns: {
+          created_at: string;
+          customer_name: string;
+          driver_name: string;
+          id: string;
+          restaurant_name: string;
+          status: Database['public']['Enums']['order_status'];
+          total_cents: number;
+        }[];
+      };
+      admin_overview: { Args: never; Returns: Json };
+      admin_restaurant: { Args: { rid: string }; Returns: Json };
+      admin_restaurants: {
+        Args: never;
+        Returns: {
+          cuisine: string;
+          id: string;
+          joined: string;
+          name: string;
+          orders_this_month: number;
+          plan: string;
+          status: string;
+        }[];
+      };
+      admin_set_driver_suspended: { Args: { suspend: boolean; uid: string }; Returns: undefined };
+      admin_set_restaurant_suspended: {
+        Args: { rid: string; suspend: boolean };
+        Returns: undefined;
+      };
       decline_delivery: { Args: { oid: string }; Returns: undefined };
       driver_available_deliveries: {
         Args: never;
@@ -569,6 +644,7 @@ export type Database = {
           tip_cents: number;
         }[];
       };
+      is_admin: { Args: never; Returns: boolean };
       mark_delivered: { Args: { oid: string }; Returns: undefined };
       mark_picked_up: { Args: { oid: string }; Returns: undefined };
       order_tracking: {

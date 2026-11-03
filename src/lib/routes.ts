@@ -34,6 +34,14 @@ export const routes = {
     earnings: '/driver/earnings',
     profile: '/driver/profile',
   },
+  admin: {
+    signIn: '/admin/sign-in',
+    overview: '/admin',
+    restaurants: '/admin/restaurants',
+    drivers: '/admin/drivers',
+    orders: '/admin/orders',
+    customers: '/admin/customers',
+  },
 } as const;
 
 /** Each role area and the paths inside it that don't need a session. */
@@ -47,6 +55,7 @@ export const areas = [
     signIn: routes.driver.signIn,
     public: [routes.driver.signIn, routes.driver.join],
   },
+  { prefix: '/admin', signIn: routes.admin.signIn, public: [routes.admin.signIn] },
 ] as const;
 
 export function areaFor(pathname: string) {

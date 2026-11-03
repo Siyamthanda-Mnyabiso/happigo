@@ -13,6 +13,13 @@
   --peach: #ffede6;
   --ok: #1c8a4c;
   --ok-bg: #e3f6ea;
+  --danger-bg: #fdeceb;
+  --warn: #8a5200;
+  --warn-bg: #fff1cf;
+  --warn-dot: #d99100;
+  --ink-soft: #2c231d;
+  --page: #faf6f3;
+  --overlay: rgb(27 20 16 / 0.45);
 }
 
 @theme inline {
@@ -28,6 +35,13 @@
   --color-peach: var(--peach);
   --color-ok: var(--ok);
   --color-ok-bg: var(--ok-bg);
+  --color-danger-bg: var(--danger-bg);
+  --color-warn: var(--warn);
+  --color-warn-bg: var(--warn-bg);
+  --color-warn-dot: var(--warn-dot);
+  --color-ink-soft: var(--ink-soft);
+  --color-page: var(--page);
+  --color-overlay: var(--overlay);
   --font-sans: var(--font-figtree);
 }
 
