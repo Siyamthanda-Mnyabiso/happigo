@@ -55,3 +55,22 @@ jobs:
       # so it is checked here too, against the mobile app's own dependencies.
       - run: npm run typecheck
       - run: npm run lint
+
+  driver:
+    name: Driver app typecheck and lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: driver
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: driver/package-lock.json
+      - run: npm ci
+      # Shared web logic (../src/lib) and shared native code (../native-shared) are checked here too.
+      - run: npm run typecheck
+      - run: npm run lint
