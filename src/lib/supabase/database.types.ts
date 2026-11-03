@@ -97,6 +97,7 @@ export const COLUMNS = {
     delivery_lng: true,
     picked_up_at: true,
     delivered_at: true,
+    payment_status: true,
   },
   driver_profiles: {
     user_id: true,
@@ -108,6 +109,7 @@ export const COLUMNS = {
     created_at: true,
   },
   delivery_declines: { driver_id: true, order_id: true },
+  customer_addresses: { id: true, user_id: true, label: true, address: true, created_at: true },
   order_items: {
     id: true,
     order_id: true,
