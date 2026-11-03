@@ -102,6 +102,37 @@ describe('restaurant data is private to its owner', () => {
   });
 });
 
+describe('public catalog', () => {
+  it('hides a restaurant from visitors until it has a plan, a bank account and a branch', async () => {
+    const { rows } = await as(db, 'anon', null, 'select id from restaurants');
+    expect(rows.map((r) => r.id)).toEqual([RA]); // RA has all three; RB has none
+  });
+
+  it('never exposes the owner or coordinates to visitors', async () => {
+    expect((await as(db, 'anon', null, 'select owner_id from restaurants')).error).toMatch(
+      /permission denied/i,
+    );
+    expect((await as(db, 'anon', null, 'select * from restaurants')).error).toMatch(
+      /permission denied/i,
+    );
+    expect((await as(db, 'anon', null, 'select lat from branches')).error).toMatch(
+      /permission denied/i,
+    );
+  });
+
+  it('shows visitors branches of listed restaurants only', async () => {
+    const { rows } = await as(db, 'anon', null, 'select name, accepting_orders from branches');
+    expect(rows).toEqual([{ name: 'Long St', accepting_orders: false }]);
+  });
+
+  it('stops listing a restaurant when its subscription is cancelled', async () => {
+    await db.exec(`update subscriptions set status = 'cancelled' where restaurant_id = '${RA}'`);
+    expect((await as(db, 'anon', null, 'select id from restaurants')).rows).toEqual([]);
+    expect((await as(db, 'anon', null, 'select name from menu_items')).rows).toEqual([]);
+    await db.exec(`update subscriptions set status = 'active' where restaurant_id = '${RA}'`);
+  });
+});
+
 describe('menus', () => {
   it('lets signed-out visitors browse available items only', async () => {
     const { rows, error } = await as(db, 'anon', null, 'select name from menu_items');

@@ -6,6 +6,8 @@ export const routes = {
     bankOnboarding: '/restaurant/onboarding/bank',
     orders: '/restaurant/orders',
     menu: '/restaurant/menu',
+    menuNew: '/restaurant/menu/new',
+    menuItem: (id: string) => `/restaurant/menu/${id}`,
     earnings: '/restaurant/earnings',
     store: '/restaurant/store',
     subscription: '/restaurant/subscription',

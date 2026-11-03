@@ -181,8 +181,10 @@ export type Database = {
         Row: {
           available: boolean;
           branch_id: string;
+          category: string;
           description: string | null;
           id: string;
+          image_url: string | null;
           name: string;
           popular: boolean;
           price_cents: number;
@@ -190,8 +192,10 @@ export type Database = {
         Insert: {
           available?: boolean;
           branch_id: string;
+          category?: string;
           description?: string | null;
           id?: string;
+          image_url?: string | null;
           name: string;
           popular?: boolean;
           price_cents: number;
@@ -199,8 +203,10 @@ export type Database = {
         Update: {
           available?: boolean;
           branch_id?: string;
+          category?: string;
           description?: string | null;
           id?: string;
+          image_url?: string | null;
           name?: string;
           popular?: boolean;
           price_cents?: number;
@@ -406,19 +412,28 @@ export type Database = {
       restaurants: {
         Row: {
           created_at: string;
+          cuisine: string | null;
+          delivery_fee_cents: number;
           id: string;
+          image_url: string | null;
           name: string;
           owner_id: string;
         };
         Insert: {
           created_at?: string;
+          cuisine?: string | null;
+          delivery_fee_cents?: number;
           id?: string;
+          image_url?: string | null;
           name: string;
           owner_id: string;
         };
         Update: {
           created_at?: string;
+          cuisine?: string | null;
+          delivery_fee_cents?: number;
           id?: string;
+          image_url?: string | null;
           name?: string;
           owner_id?: string;
         };

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { calcOrderTotals } from './pricing';
-import { formatRand } from './money';
+import { formatRand, parseRand, toRandInput } from './money';
 
 describe('calcOrderTotals', () => {
   it('has no commission or service fee', () => {
@@ -22,5 +22,20 @@ describe('formatRand', () => {
   });
   it('shows cents when needed', () => {
     expect(formatRand(4850)).toBe('R48.50');
+  });
+});
+
+describe('parseRand', () => {
+  it('reads common ways of typing a price', () => {
+    expect(parseRand('15')).toBe(1500);
+    expect(parseRand('15.5')).toBe(1550);
+    expect(parseRand('R 1 200,50')).toBe(120050);
+  });
+  it('rejects anything else', () => {
+    for (const bad of ['', 'abc', '-5', '1.234', '1,2,3']) expect(parseRand(bad), bad).toBeNull();
+  });
+  it('round trips with toRandInput', () => {
+    expect(toRandInput(6500)).toBe('65.00');
+    expect(parseRand(toRandInput(6550))).toBe(6550);
   });
 });
