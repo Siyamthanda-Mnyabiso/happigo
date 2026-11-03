@@ -1,16 +1,10 @@
-import { CartBar } from './cart-bar';
-import { CustomerTabs } from './customer-tabs';
-import { ShopHeader } from './shop-header';
-
+/** The customer app is a phone app. On a wide screen it sits centred on a soft background. */
 export default function ShopLayout({ children }: { children: React.ReactNode }) {
   return (
-    <>
-      <ShopHeader />
-      <div className="mx-auto w-full max-w-6xl px-5 pb-44 pt-6 md:px-8 md:pb-28">{children}</div>
-      <CartBar />
-      <div className="md:hidden">
-        <CustomerTabs />
+    <div className="min-h-dvh md:bg-card">
+      <div className="relative mx-auto min-h-dvh w-full max-w-[430px] bg-white md:shadow-[0_0_0_1px_var(--line)]">
+        {children}
       </div>
-    </>
+    </div>
   );
 }

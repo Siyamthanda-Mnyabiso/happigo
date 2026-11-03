@@ -15,7 +15,10 @@ export const routes = {
   customer: {
     home: '/',
     restaurant: (id: string) => `/r/${id}`,
+    search: '/search',
+    item: (rid: string, iid: string) => `/r/${rid}/items/${iid}`,
     cart: '/cart',
+    addresses: '/account/addresses',
     checkout: '/checkout',
     orders: '/orders',
     order: (id: string) => `/orders/${id}`,

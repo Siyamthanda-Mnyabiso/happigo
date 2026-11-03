@@ -10,6 +10,9 @@
   --brand-hover: #e03400;
   --on-dark: #e6dcd4;
   --nav-icon: #c9bfb8;
+  --peach: #ffede6;
+  --ok: #1c8a4c;
+  --ok-bg: #e3f6ea;
 }
 
 @theme inline {
@@ -22,6 +25,9 @@
   --color-brand-hover: var(--brand-hover);
   --color-on-dark: var(--on-dark);
   --color-nav-icon: var(--nav-icon);
+  --color-peach: var(--peach);
+  --color-ok: var(--ok);
+  --color-ok-bg: var(--ok-bg);
   --font-sans: var(--font-figtree);
 }
 

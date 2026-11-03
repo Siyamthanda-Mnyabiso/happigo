@@ -31,3 +31,25 @@ export function tintFor(seed: string): (typeof TINTS)[number] {
   for (const ch of seed) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
   return TINTS[h % TINTS.length];
 }
+
+const PHOTOS: [RegExp, string][] = [
+  [/burger|smash|cheese/i, '/food/burgers.jpg'],
+  [/pizza|italian/i, '/food/pizza.jpg'],
+  [/sushi|japan/i, '/food/sushi.jpg'],
+  [/healthy|salad|vegan|vegetarian|bowl/i, '/food/healthy.jpg'],
+  [/curry|indian|spice/i, '/food/curry.jpg'],
+];
+
+/** One of the five photos from the design, when the cuisine or dish fits. Used until a restaurant uploads its own. */
+export function categoryPhoto(text: string | null | undefined): string | null {
+  return PHOTOS.find(([re]) => re.test(text ?? ''))?.[1] ?? null;
+}
+
+/** The cuisines shown as round photo chips on the home screen, in the order the design has them. */
+export const HOME_CUISINES = [
+  { name: 'Burgers', photo: '/food/burgers.jpg' },
+  { name: 'Pizza', photo: '/food/pizza.jpg' },
+  { name: 'Sushi', photo: '/food/sushi.jpg' },
+  { name: 'Healthy', photo: '/food/healthy.jpg' },
+  { name: 'Curry', photo: '/food/curry.jpg' },
+] as const;

@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation';
-import { getCustomer } from '@/lib/customer';
+import { PageHeader } from '@/components/shop/page-header';
 import { loadCartView } from '@/lib/cart-view';
+import { getCustomer } from '@/lib/customer';
 import { routes } from '@/lib/routes';
 import { CheckoutForm } from './checkout-form';
 
@@ -16,14 +17,13 @@ export default async function CheckoutPage() {
     .limit(1)
     .maybeSingle();
   return (
-    <>
-      <h1 className="text-3xl font-extrabold">Checkout</h1>
-      <p className="mb-6 text-muted">{view.restaurant.name}</p>
+    <div className="px-6 pt-12">
+      <PageHeader title="Checkout" back={routes.customer.cart} />
       <CheckoutForm
         food={view.totals.food}
         deliveryFee={view.totals.deliveryFee}
         defaultAddress={last?.address ?? ''}
       />
-    </>
+    </div>
   );
 }

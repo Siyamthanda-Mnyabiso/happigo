@@ -34,19 +34,35 @@ export function Field({
   name,
   error,
   className,
+  icon,
   ...props
-}: { label: string; name: string; error?: string } & React.ComponentProps<'input'>) {
+}: {
+  label: string;
+  name: string;
+  error?: string;
+  icon?: React.ReactNode;
+} & React.ComponentProps<'input'>) {
   const id = `f-${name}`;
   return (
     <Wrapper id={id} label={label} error={error}>
-      <input
-        id={id}
-        name={name}
-        aria-invalid={!!error}
-        aria-describedby={error ? `${id}-err` : undefined}
-        className={clsx(control, className)}
-        {...props}
-      />
+      <div className="relative">
+        {icon && (
+          <span
+            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-muted"
+            aria-hidden
+          >
+            {icon}
+          </span>
+        )}
+        <input
+          id={id}
+          name={name}
+          aria-invalid={!!error}
+          aria-describedby={error ? `${id}-err` : undefined}
+          className={clsx(control, icon && 'pl-12', className)}
+          {...props}
+        />
+      </div>
     </Wrapper>
   );
 }
