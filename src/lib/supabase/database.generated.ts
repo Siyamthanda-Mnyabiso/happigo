@@ -141,34 +141,87 @@ export type Database = {
           },
         ];
       };
+      order_items: {
+        Row: {
+          id: string;
+          name: string;
+          options: string | null;
+          order_id: string;
+          quantity: number;
+          unit_price_cents: number;
+        };
+        Insert: {
+          id?: string;
+          name: string;
+          options?: string | null;
+          order_id: string;
+          quantity: number;
+          unit_price_cents: number;
+        };
+        Update: {
+          id?: string;
+          name?: string;
+          options?: string | null;
+          order_id?: string;
+          quantity?: number;
+          unit_price_cents?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'order_items_order_id_fkey';
+            columns: ['order_id'];
+            isOneToOne: false;
+            referencedRelation: 'orders';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       orders: {
         Row: {
+          accepted_at: string | null;
           branch_id: string;
           created_at: string;
           customer_id: string | null;
+          customer_name: string | null;
+          delivery_address: string | null;
           delivery_fee_cents: number;
           food_cents: number;
           id: string;
+          note: string | null;
+          prep_minutes: number | null;
+          respond_by: string | null;
           status: Database['public']['Enums']['order_status'];
           total_cents: number | null;
         };
         Insert: {
+          accepted_at?: string | null;
           branch_id: string;
           created_at?: string;
           customer_id?: string | null;
+          customer_name?: string | null;
+          delivery_address?: string | null;
           delivery_fee_cents: number;
           food_cents: number;
           id?: string;
+          note?: string | null;
+          prep_minutes?: number | null;
+          respond_by?: string | null;
           status?: Database['public']['Enums']['order_status'];
           total_cents?: number | null;
         };
         Update: {
+          accepted_at?: string | null;
           branch_id?: string;
           created_at?: string;
           customer_id?: string | null;
+          customer_name?: string | null;
+          delivery_address?: string | null;
           delivery_fee_cents?: number;
           food_cents?: number;
           id?: string;
+          note?: string | null;
+          prep_minutes?: number | null;
+          respond_by?: string | null;
           status?: Database['public']['Enums']['order_status'];
           total_cents?: number | null;
         };

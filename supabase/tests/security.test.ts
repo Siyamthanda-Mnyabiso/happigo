@@ -127,7 +127,7 @@ describe('orders', () => {
       db,
       'authenticated',
       A,
-      `update orders set status = 'preparing' where id = '${ORDER_A}' returning id`,
+      `update orders set status = 'preparing', prep_minutes = 15 where id = '${ORDER_A}' returning id`,
     );
     expect(r.error).toBeNull();
     expect(r.rows).toHaveLength(1);
@@ -146,5 +146,57 @@ describe('orders', () => {
   it("does not show another restaurant's orders", async () => {
     const { rows } = await as(db, 'authenticated', B, 'select id from orders');
     expect(rows).toEqual([]);
+  });
+});
+
+describe('order status rules', () => {
+  const NEW = '30000000-0000-0000-0000-0000000000b1';
+  beforeAll(async () => {
+    await db.exec(
+      `insert into orders (id, branch_id, food_cents, delivery_fee_cents) values ('${NEW}', '${BR_A}', 5000, 1500)`,
+    );
+  });
+  const move = (uid: string, to: string, extra = '') =>
+    as(
+      db,
+      'authenticated',
+      uid,
+      `update orders set status = '${to}' ${extra} where id = '${NEW}' returning status`,
+    );
+
+  it('needs a prep time to accept', async () => {
+    const r = await move(A, 'preparing');
+    expect(r.error).toMatch(/prep time/i);
+  });
+
+  it('only accepts the four prep times', async () => {
+    const r = await move(A, 'preparing', ', prep_minutes = 12');
+    expect(r.error).toBeTruthy();
+  });
+
+  it('stamps the acceptance time on the server', async () => {
+    const r = await move(A, 'preparing', ', prep_minutes = 15');
+    expect(r.error).toBeNull();
+    const { rows } = await db.query<{ accepted_at: string | null }>(
+      `select accepted_at from orders where id = '${NEW}'`,
+    );
+    expect(rows[0].accepted_at).not.toBeNull();
+  });
+
+  it('stops a restaurant marking an order delivered', async () => {
+    await db.exec(`update orders set status = 'ready' where id = '${NEW}'`);
+    expect((await move(A, 'picked_up')).error).toMatch(/cannot move/i);
+    expect((await move(A, 'delivered')).error).toBeTruthy();
+  });
+
+  it('does not let another restaurant touch it', async () => {
+    const r = await move(B, 'cancelled');
+    expect(r.rows).toEqual([]);
+  });
+
+  it('rejects impossible jumps even from the system', async () => {
+    await expect(db.exec(`update orders set status = 'new' where id = '${NEW}'`)).rejects.toThrow(
+      /cannot go/i,
+    );
   });
 });
