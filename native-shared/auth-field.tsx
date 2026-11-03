@@ -1,5 +1,5 @@
 import { View, TextInput, type TextInputProps } from 'react-native';
-import { colors } from '@/theme';
+import { colors } from './theme';
 import { Text } from './ui';
 
 /** A labelled input with a leading icon, from the sign in design. */

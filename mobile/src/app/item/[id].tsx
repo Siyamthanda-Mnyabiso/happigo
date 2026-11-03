@@ -5,11 +5,11 @@ import { useState } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { FoodImage } from '@/components/food-image';
-import { BackButton, Button, Text } from '@/components/ui';
+import { BackButton, Button, Text } from '@native/ui';
 import { useCart } from '@/lib/cart';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@native/supabase';
 import { formatRand } from '@core/money';
-import { colors } from '@/theme';
+import { colors } from '@native/theme';
 
 export default function ItemScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();

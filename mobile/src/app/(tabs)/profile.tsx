@@ -2,10 +2,10 @@ import { router } from 'expo-router';
 import { CaretRight, MapPin, Receipt, SignOut, User } from 'phosphor-react-native';
 import { Pressable, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Text } from '@/components/ui';
+import { Text } from '@native/ui';
 import { useRequireAuth } from '@/lib/require-auth';
-import { supabase } from '@/lib/supabase';
-import { colors } from '@/theme';
+import { supabase } from '@native/supabase';
+import { colors } from '@native/theme';
 
 function Row({ label, Icon, onPress, danger }: { label: string; Icon: typeof MapPin; onPress: () => void; danger?: boolean }) {
   return (

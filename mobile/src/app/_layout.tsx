@@ -13,7 +13,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import { Platform, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { AuthProvider } from '@/lib/auth';
+import { AuthProvider } from '@native/auth';
 import { CartProvider } from '@/lib/cart';
 
 SplashScreen.preventAutoHideAsync();

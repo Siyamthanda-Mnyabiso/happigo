@@ -1,7 +1,7 @@
 import { View } from 'react-native';
 import { formatRand } from '@core/money';
-import { colors } from '@/theme';
-import { Text } from './ui';
+import { colors } from '@native/theme';
+import { Text } from '@native/ui';
 
 /** Food, delivery, tip, total. Same breakdown in the cart, at checkout and on the receipt. */
 export function Totals({ food, deliveryFee, tip = 0, showTotal = true }: { food: number; deliveryFee: number; tip?: number; showTotal?: boolean }) {

@@ -4,12 +4,12 @@ import { useRef, useState } from 'react';
 import { Pressable, ScrollView, type ScrollViewInstance, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { FoodImage } from '@/components/food-image';
-import { BackButton, Pill, Text } from '@/components/ui';
+import { BackButton, Pill, Text } from '@native/ui';
 import { useCart } from '@/lib/cart';
 import { useRestaurantMenu } from '@/lib/data';
 import { formatRand } from '@core/money';
 import { qtyOf } from '@core/cart';
-import { colors, shadow } from '@/theme';
+import { colors, shadow } from '@native/theme';
 
 export default function RestaurantScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();

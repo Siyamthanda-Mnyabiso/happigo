@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { calcOrderTotals } from '@core/pricing';
 import type { Cart } from '@core/cart';
-import { supabase } from './supabase';
+import { supabase } from '@native/supabase';
 
 export type RestaurantSummary = {
   id: string;

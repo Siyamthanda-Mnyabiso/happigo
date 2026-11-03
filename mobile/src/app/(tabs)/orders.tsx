@@ -3,12 +3,12 @@ import { router, useLocalSearchParams } from 'expo-router';
 import { FlatList, Pressable, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { FoodImage } from '@/components/food-image';
-import { Pill, Text } from '@/components/ui';
+import { Pill, Text } from '@native/ui';
 import { useRequireAuth } from '@/lib/require-auth';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@native/supabase';
 import { isActive, STATUS_COPY } from '@core/customer-status';
 import { formatRand } from '@core/money';
-import { colors, shadow } from '@/theme';
+import { colors, shadow } from '@native/theme';
 
 export default function OrdersScreen() {
   const insets = useSafeAreaInsets();

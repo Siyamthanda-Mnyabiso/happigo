@@ -1,6 +1,6 @@
 import { router, usePathname } from 'expo-router';
 import { useEffect } from 'react';
-import { useAuth } from './auth';
+import { useAuth } from '@native/auth';
 
 /** Send signed-out visitors to sign in, and bring them back to this screen afterwards. */
 export function useRequireAuth() {

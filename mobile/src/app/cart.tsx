@@ -5,11 +5,11 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { FoodImage } from '@/components/food-image';
 import { PageHeader } from '@/components/page-header';
 import { Totals } from '@/components/totals';
-import { Button, Text } from '@/components/ui';
+import { Button, Text } from '@native/ui';
 import { useCart } from '@/lib/cart';
 import { useCartView } from '@/lib/data';
 import { formatRand } from '@core/money';
-import { colors } from '@/theme';
+import { colors } from '@native/theme';
 
 export default function CartScreen() {
   const insets = useSafeAreaInsets();
