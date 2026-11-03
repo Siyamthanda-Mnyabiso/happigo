@@ -15,8 +15,9 @@ export async function createDb() {
     create function auth.uid() returns uuid language sql stable as
       $$ select nullif(current_setting('request.jwt.claim.sub', true), '')::uuid $$;
     grant usage on schema auth, public to anon, authenticated, service_role;
-    -- Supabase grants table privileges to these roles by default. RLS is what restricts them.
-    alter default privileges in schema public grant all on tables to anon, authenticated, service_role;
+    -- No default table grants on purpose: new Supabase projects have none, so the migrations must grant.
+    grant all on all tables in schema public to service_role;
+    alter default privileges in schema public grant all on tables to service_role;
   `);
   for (const f of fs
     .readdirSync(MIGRATIONS)

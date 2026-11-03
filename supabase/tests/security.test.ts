@@ -18,6 +18,8 @@ beforeAll(async () => {
     insert into branches (id, restaurant_id, name) values ('${BR_A}', '${RA}', 'Long St');
     insert into subscriptions (restaurant_id, plan) values ('${RA}', 'smb');
     insert into bank_accounts (restaurant_id, bank, account_holder, account_last4) values ('${RA}', 'FNB', 'A', '4821');
+    insert into menu_items (branch_id, name, price_cents, available) values
+      ('${BR_A}', 'Cheeseburger', 6500, true), ('${BR_A}', 'Sold out', 3000, false);
     insert into orders (id, branch_id, food_cents, delivery_fee_cents) values ('${ORDER_A}', '${BR_A}', 14300, 1500);
   `);
 });
@@ -97,6 +99,25 @@ describe('restaurant data is private to its owner', () => {
       const { rows } = await as(db, 'anon', null, `select * from ${t}`);
       expect(rows, t).toEqual([]);
     }
+  });
+});
+
+describe('menus', () => {
+  it('lets signed-out visitors browse available items only', async () => {
+    const { rows, error } = await as(db, 'anon', null, 'select name from menu_items');
+    expect(error).toBeNull();
+    expect(rows.map((r) => r.name)).toEqual(['Cheeseburger']);
+  });
+
+  it('lets the owner see their unavailable items too', async () => {
+    const { rows } = await as(db, 'authenticated', A, 'select name from menu_items order by name');
+    expect(rows.map((r) => r.name)).toEqual(['Cheeseburger', 'Sold out']);
+  });
+
+  it("blocks editing another restaurant's menu", async () => {
+    await as(db, 'authenticated', B, 'update menu_items set price_cents = 1');
+    const { rows } = await db.query<{ price_cents: number }>('select price_cents from menu_items');
+    expect(rows.every((r) => r.price_cents > 1)).toBe(true);
   });
 });
 

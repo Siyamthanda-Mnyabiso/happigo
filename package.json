@@ -10,7 +10,8 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "db:types": "supabase gen types typescript --linked > src/lib/supabase/database.generated.ts && prettier --write src/lib/supabase/database.generated.ts"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
