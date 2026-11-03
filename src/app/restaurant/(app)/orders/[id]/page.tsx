@@ -7,7 +7,7 @@ import { orderCode } from '@/lib/orders';
 import { calcOrderTotals } from '@/lib/pricing';
 import { getPartner } from '@/lib/restaurant';
 import { routes } from '@/lib/routes';
-import { AutoRefresh } from '../auto-refresh';
+import { AutoRefresh } from '@/components/auto-refresh';
 import { Countdown } from '../countdown';
 import { ReadyAction, RespondActions } from '../order-actions';
 

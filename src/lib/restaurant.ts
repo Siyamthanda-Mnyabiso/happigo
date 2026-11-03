@@ -37,3 +37,17 @@ export async function getOrCreateRestaurant() {
   if (error) throw new Error('Could not create restaurant');
   return { ...partner, restaurantId: data.id };
 }
+
+/** The restaurant's main branch. Menu and store settings hang off it. null until the store is set up. */
+export async function getMainBranch() {
+  const partner = await getPartner();
+  if (!partner.restaurant) redirect(routes.restaurant.planOnboarding);
+  const { data: branch } = await partner.supabase
+    .from('branches')
+    .select('id, name, address, accepting_orders')
+    .eq('restaurant_id', partner.restaurant.id)
+    .order('created_at')
+    .limit(1)
+    .maybeSingle();
+  return { ...partner, restaurant: partner.restaurant, branch };
+}

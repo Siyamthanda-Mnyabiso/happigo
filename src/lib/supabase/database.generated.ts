@@ -74,6 +74,8 @@ export type Database = {
           address: string | null;
           created_at: string;
           id: string;
+          lat: number | null;
+          lng: number | null;
           name: string;
           restaurant_id: string;
         };
@@ -82,6 +84,8 @@ export type Database = {
           address?: string | null;
           created_at?: string;
           id?: string;
+          lat?: number | null;
+          lng?: number | null;
           name: string;
           restaurant_id: string;
         };
@@ -90,6 +94,8 @@ export type Database = {
           address?: string | null;
           created_at?: string;
           id?: string;
+          lat?: number | null;
+          lng?: number | null;
           name?: string;
           restaurant_id?: string;
         };
@@ -103,12 +109,114 @@ export type Database = {
           },
         ];
       };
+      customer_addresses: {
+        Row: {
+          address: string;
+          created_at: string;
+          id: string;
+          label: string;
+          user_id: string;
+        };
+        Insert: {
+          address: string;
+          created_at?: string;
+          id?: string;
+          label: string;
+          user_id: string;
+        };
+        Update: {
+          address?: string;
+          created_at?: string;
+          id?: string;
+          label?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'customer_addresses_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      delivery_declines: {
+        Row: {
+          driver_id: string;
+          order_id: string;
+        };
+        Insert: {
+          driver_id: string;
+          order_id: string;
+        };
+        Update: {
+          driver_id?: string;
+          order_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'delivery_declines_driver_id_fkey';
+            columns: ['driver_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'delivery_declines_order_id_fkey';
+            columns: ['order_id'];
+            isOneToOne: false;
+            referencedRelation: 'orders';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      driver_profiles: {
+        Row: {
+          created_at: string;
+          is_online: boolean;
+          phone: string | null;
+          user_id: string;
+          vehicle_model: string | null;
+          vehicle_plate: string | null;
+          vehicle_type: string | null;
+        };
+        Insert: {
+          created_at?: string;
+          is_online?: boolean;
+          phone?: string | null;
+          user_id: string;
+          vehicle_model?: string | null;
+          vehicle_plate?: string | null;
+          vehicle_type?: string | null;
+        };
+        Update: {
+          created_at?: string;
+          is_online?: boolean;
+          phone?: string | null;
+          user_id?: string;
+          vehicle_model?: string | null;
+          vehicle_plate?: string | null;
+          vehicle_type?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'driver_profiles_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: true;
+            referencedRelation: 'profiles';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       menu_items: {
         Row: {
           available: boolean;
           branch_id: string;
+          category: string;
           description: string | null;
           id: string;
+          image_url: string | null;
           name: string;
           popular: boolean;
           price_cents: number;
@@ -116,8 +224,10 @@ export type Database = {
         Insert: {
           available?: boolean;
           branch_id: string;
+          category?: string;
           description?: string | null;
           id?: string;
+          image_url?: string | null;
           name: string;
           popular?: boolean;
           price_cents: number;
@@ -125,8 +235,10 @@ export type Database = {
         Update: {
           available?: boolean;
           branch_id?: string;
+          category?: string;
           description?: string | null;
           id?: string;
+          image_url?: string | null;
           name?: string;
           popular?: boolean;
           price_cents?: number;
@@ -183,14 +295,24 @@ export type Database = {
           created_at: string;
           customer_id: string | null;
           customer_name: string | null;
+          delivered_at: string | null;
           delivery_address: string | null;
           delivery_fee_cents: number;
+          delivery_instructions: string | null;
+          delivery_lat: number | null;
+          delivery_lng: number | null;
+          driver_id: string | null;
+          driver_pay_cents: number | null;
           food_cents: number;
           id: string;
           note: string | null;
+          payment_method: string;
+          payment_status: string;
+          picked_up_at: string | null;
           prep_minutes: number | null;
           respond_by: string | null;
           status: Database['public']['Enums']['order_status'];
+          tip_cents: number;
           total_cents: number | null;
         };
         Insert: {
@@ -199,14 +321,24 @@ export type Database = {
           created_at?: string;
           customer_id?: string | null;
           customer_name?: string | null;
+          delivered_at?: string | null;
           delivery_address?: string | null;
           delivery_fee_cents: number;
+          delivery_instructions?: string | null;
+          delivery_lat?: number | null;
+          delivery_lng?: number | null;
+          driver_id?: string | null;
+          driver_pay_cents?: number | null;
           food_cents: number;
           id?: string;
           note?: string | null;
+          payment_method?: string;
+          payment_status?: string;
+          picked_up_at?: string | null;
           prep_minutes?: number | null;
           respond_by?: string | null;
           status?: Database['public']['Enums']['order_status'];
+          tip_cents?: number;
           total_cents?: number | null;
         };
         Update: {
@@ -215,14 +347,24 @@ export type Database = {
           created_at?: string;
           customer_id?: string | null;
           customer_name?: string | null;
+          delivered_at?: string | null;
           delivery_address?: string | null;
           delivery_fee_cents?: number;
+          delivery_instructions?: string | null;
+          delivery_lat?: number | null;
+          delivery_lng?: number | null;
+          driver_id?: string | null;
+          driver_pay_cents?: number | null;
           food_cents?: number;
           id?: string;
           note?: string | null;
+          payment_method?: string;
+          payment_status?: string;
+          picked_up_at?: string | null;
           prep_minutes?: number | null;
           respond_by?: string | null;
           status?: Database['public']['Enums']['order_status'];
+          tip_cents?: number;
           total_cents?: number | null;
         };
         Relationships: [
@@ -236,6 +378,13 @@ export type Database = {
           {
             foreignKeyName: 'orders_customer_id_fkey';
             columns: ['customer_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'orders_driver_id_fkey';
+            columns: ['driver_id'];
             isOneToOne: false;
             referencedRelation: 'profiles';
             referencedColumns: ['id'];
@@ -298,19 +447,28 @@ export type Database = {
       restaurants: {
         Row: {
           created_at: string;
+          cuisine: string | null;
+          delivery_fee_cents: number;
           id: string;
+          image_url: string | null;
           name: string;
           owner_id: string;
         };
         Insert: {
           created_at?: string;
+          cuisine?: string | null;
+          delivery_fee_cents?: number;
           id?: string;
+          image_url?: string | null;
           name: string;
           owner_id: string;
         };
         Update: {
           created_at?: string;
+          cuisine?: string | null;
+          delivery_fee_cents?: number;
           id?: string;
+          image_url?: string | null;
           name?: string;
           owner_id?: string;
         };
@@ -396,7 +554,46 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
-      [_ in never]: never;
+      accept_delivery: { Args: { oid: string }; Returns: undefined };
+      decline_delivery: { Args: { oid: string }; Returns: undefined };
+      driver_available_deliveries: {
+        Args: never;
+        Returns: {
+          distance_km: number;
+          driver_pay_cents: number;
+          item_count: number;
+          order_id: string;
+          pickup_address: string;
+          restaurant_name: string;
+          status: Database['public']['Enums']['order_status'];
+          tip_cents: number;
+        }[];
+      };
+      mark_delivered: { Args: { oid: string }; Returns: undefined };
+      mark_picked_up: { Args: { oid: string }; Returns: undefined };
+      order_tracking: {
+        Args: { oid: string };
+        Returns: {
+          driver_first_name: string;
+          status: Database['public']['Enums']['order_status'];
+          vehicle_model: string;
+          vehicle_plate: string;
+        }[];
+      };
+      place_order: {
+        Args: {
+          p_address: string;
+          p_branch: string;
+          p_instructions: string;
+          p_items: Json;
+          p_lat?: number;
+          p_lng?: number;
+          p_note: string;
+          p_payment: string;
+          p_tip: number;
+        };
+        Returns: string;
+      };
     };
     Enums: {
       order_status:

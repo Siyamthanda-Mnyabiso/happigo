@@ -6,15 +6,44 @@ export const routes = {
     bankOnboarding: '/restaurant/onboarding/bank',
     orders: '/restaurant/orders',
     menu: '/restaurant/menu',
+    menuNew: '/restaurant/menu/new',
+    menuItem: (id: string) => `/restaurant/menu/${id}`,
     earnings: '/restaurant/earnings',
     store: '/restaurant/store',
     subscription: '/restaurant/subscription',
+  },
+  customer: {
+    home: '/',
+    restaurant: (id: string) => `/r/${id}`,
+    cart: '/cart',
+    checkout: '/checkout',
+    orders: '/orders',
+    order: (id: string) => `/orders/${id}`,
+    account: '/account',
+    signIn: '/sign-in',
+    signUp: '/sign-up',
+  },
+  driver: {
+    signIn: '/driver/sign-in',
+    join: '/driver/join',
+    home: '/driver/home',
+    delivery: (id: string) => `/driver/deliveries/${id}`,
+    earnings: '/driver/earnings',
+    profile: '/driver/profile',
   },
 } as const;
 
 /** Each role area and the paths inside it that don't need a session. */
 export const areas = [
   { prefix: '/restaurant', signIn: routes.restaurant.signIn, public: [routes.restaurant.signIn] },
+  { prefix: '/orders', signIn: routes.customer.signIn, public: [] },
+  { prefix: '/checkout', signIn: routes.customer.signIn, public: [] },
+  { prefix: '/account', signIn: routes.customer.signIn, public: [] },
+  {
+    prefix: '/driver',
+    signIn: routes.driver.signIn,
+    public: [routes.driver.signIn, routes.driver.join],
+  },
 ] as const;
 
 export function areaFor(pathname: string) {

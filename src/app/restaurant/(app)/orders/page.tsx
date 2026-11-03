@@ -6,7 +6,7 @@ import { currentTime } from '@/lib/now';
 import { ageLabel, itemCountLabel, minutesToReady, orderCode, parseTab, TABS } from '@/lib/orders';
 import { getPartner } from '@/lib/restaurant';
 import { routes } from '@/lib/routes';
-import { AutoRefresh } from './auto-refresh';
+import { AutoRefresh } from '@/components/auto-refresh';
 import { ReadyAction, RespondActions } from './order-actions';
 
 const EMPTY: Record<string, string> = {

@@ -20,7 +20,15 @@ type Tables = Database['public']['Tables'];
  */
 export const COLUMNS = {
   profiles: { id: true, role: true, full_name: true, created_at: true },
-  restaurants: { id: true, owner_id: true, name: true, created_at: true },
+  restaurants: {
+    id: true,
+    owner_id: true,
+    name: true,
+    created_at: true,
+    cuisine: true,
+    delivery_fee_cents: true,
+    image_url: true,
+  },
   branches: {
     id: true,
     restaurant_id: true,
@@ -28,6 +36,8 @@ export const COLUMNS = {
     address: true,
     accepting_orders: true,
     created_at: true,
+    lat: true,
+    lng: true,
   },
   subscriptions: {
     restaurant_id: true,
@@ -60,6 +70,8 @@ export const COLUMNS = {
     price_cents: true,
     available: true,
     popular: true,
+    category: true,
+    image_url: true,
   },
   orders: {
     id: true,
@@ -76,7 +88,28 @@ export const COLUMNS = {
     prep_minutes: true,
     respond_by: true,
     accepted_at: true,
+    tip_cents: true,
+    driver_id: true,
+    driver_pay_cents: true,
+    delivery_instructions: true,
+    payment_method: true,
+    delivery_lat: true,
+    delivery_lng: true,
+    picked_up_at: true,
+    delivered_at: true,
+    payment_status: true,
   },
+  driver_profiles: {
+    user_id: true,
+    phone: true,
+    vehicle_type: true,
+    vehicle_model: true,
+    vehicle_plate: true,
+    is_online: true,
+    created_at: true,
+  },
+  delivery_declines: { driver_id: true, order_id: true },
+  customer_addresses: { id: true, user_id: true, label: true, address: true, created_at: true },
   order_items: {
     id: true,
     order_id: true,

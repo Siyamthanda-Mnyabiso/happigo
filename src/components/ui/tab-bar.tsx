@@ -1,26 +1,21 @@
 'use client';
 
+import type { Icon } from '@phosphor-icons/react';
+import { clsx } from 'clsx';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { BagIcon, ChartBarIcon, ForkKnifeIcon, StorefrontIcon } from '@phosphor-icons/react';
-import { clsx } from 'clsx';
-import { routes } from '@/lib/routes';
 
-const TABS = [
-  { href: routes.restaurant.orders, label: 'Orders', Icon: BagIcon },
-  { href: routes.restaurant.menu, label: 'Menu', Icon: ForkKnifeIcon },
-  { href: routes.restaurant.earnings, label: 'Earnings', Icon: ChartBarIcon },
-  { href: routes.restaurant.store, label: 'Store', Icon: StorefrontIcon },
-];
+export type Tab = { href: string; label: string; Icon: Icon };
 
-export function TabBar() {
+/** Floating dark pill with one icon per section. Shared by the restaurant and driver apps. */
+export function TabBar({ tabs }: { tabs: readonly Tab[] }) {
   const path = usePathname();
   return (
     <nav
       aria-label="Main"
       className="fixed inset-x-0 bottom-4 mx-auto flex h-[68px] w-[calc(100%-32px)] max-w-[398px] items-center justify-around rounded-full bg-ink px-3"
     >
-      {TABS.map(({ href, label, Icon }) => {
+      {tabs.map(({ href, label, Icon }) => {
         const active = path === href || path.startsWith(`${href}/`);
         return (
           <Link
