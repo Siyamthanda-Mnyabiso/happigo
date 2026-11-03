@@ -39,5 +39,6 @@ export const config = {
     '/orders/:path*',
     '/checkout/:path*',
     '/account/:path*',
+    '/admin/:path*',
   ],
 };

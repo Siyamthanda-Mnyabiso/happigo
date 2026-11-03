@@ -22,6 +22,19 @@ Sign up at `/driver/join` (free). If Supabase email confirmation is on, confirm 
 `supabase/dev-seed.sql` and `supabase/dev-seed-driver.sql` in the SQL editor, go online, and the delivery appears.
 Driver pay is the delivery fee plus the tip.
 
+## Admin site
+
+HappiGo staff use `/admin` (sign in at `/admin/sign-in`). The admin role can never be chosen at signup, so promote a
+person by hand: have them sign up as a customer, then run this once in the Supabase SQL editor:
+
+```sql
+update profiles set role = 'admin' where id = (select id from auth.users where email = 'staff@example.com');
+```
+
+All admin data goes through `admin_*` database functions that check the caller is an admin (see
+`supabase/migrations/20261103000900_admin.sql`), so no service-role key is used. Apply the migration with
+`supabase db push` before the admin site is used.
+
 ## Checks
 
 `npm run format:check && npm run lint && npm run typecheck && npm test && npm run build`
