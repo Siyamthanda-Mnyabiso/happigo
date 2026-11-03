@@ -32,6 +32,15 @@
       ],
       "react-native-url-polyfill/auto": [
         "./node_modules/react-native-url-polyfill/auto"
+      ],
+      "react": [
+        "./node_modules/@types/react"
+      ],
+      "react/jsx-runtime": [
+        "./node_modules/@types/react/jsx-runtime"
+      ],
+      "@supabase/supabase-js": [
+        "./node_modules/@supabase/supabase-js"
       ]
     }
   },
