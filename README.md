@@ -38,3 +38,13 @@ Driver pay is the delivery fee plus the tip.
 - No commission or service fee anywhere. `calcOrderTotals` pays the restaurant the full food total.
 - Money is integer cents. Full bank account numbers are never stored, only the last 4 digits.
 - Plan prices are `null` until confirmed.
+
+## Customer app
+
+Customers use the root of the site: `/` (browse), `/r/[id]` (menu), `/cart`, `/checkout`, `/orders`, `/account`.
+Browsing is public. Checkout, orders and account need a customer account (`/sign-up`).
+
+- The cart is a cookie of ids and quantities only. Prices always come from the database, and `place_order` re-checks everything.
+- Card payment is a **stub**: card orders are marked paid immediately. Replace it in `place_order` once Paystack or Peach is chosen.
+- A restaurant shows up only when it has an active subscription, a bank account and a branch.
+- To try it, run `supabase/dev-seed.sql` by hand in the SQL editor (dev only, never part of the migrations).
