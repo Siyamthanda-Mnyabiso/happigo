@@ -11,6 +11,11 @@ npm run dev
 
 Apply `supabase/migrations/*.sql` to your Supabase project (`supabase db push`).
 
+## Trying the Orders screen
+
+Orders come from the customer app, which doesn't exist yet. After onboarding a test partner, run
+`supabase/dev-seed.sql` in the Supabase SQL editor to add two sample new orders. It is never part of the migrations.
+
 ## Checks
 
 `npm run format:check && npm run lint && npm run typecheck && npm test && npm run build`
