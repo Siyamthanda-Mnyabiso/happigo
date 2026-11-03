@@ -20,7 +20,7 @@ export default async function EditItemPage({
   const { supabase } = await getMainBranch();
   const { data: item } = await supabase
     .from('menu_items')
-    .select('id, name, price_cents, category, description, available, popular')
+    .select('id, name, price_cents, category, description, available, popular, image_url')
     .eq('id', id)
     .maybeSingle();
   if (!item) notFound();
@@ -38,6 +38,7 @@ export default async function EditItemPage({
           description: item.description ?? '',
           available: item.available,
           popular: item.popular,
+          imageUrl: item.image_url,
         }}
       />
       <div className="mt-8">

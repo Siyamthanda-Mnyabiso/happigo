@@ -15,6 +15,7 @@ export default function NewItemPage() {
           description: '',
           available: true,
           popular: false,
+          imageUrl: null,
         }}
       />
     </>

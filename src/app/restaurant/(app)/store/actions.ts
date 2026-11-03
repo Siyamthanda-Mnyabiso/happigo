@@ -3,11 +3,13 @@
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 import { parseRand } from '@/lib/money';
+import { hasPhoto } from '@/lib/photos';
 import { getMainBranch } from '@/lib/restaurant';
 import { routes } from '@/lib/routes';
+import { uploadPhoto } from '@/lib/upload-photo';
 
 export type StoreState = {
-  errors?: Partial<Record<'name' | 'address' | 'deliveryFee' | 'form', string>>;
+  errors?: Partial<Record<'name' | 'address' | 'deliveryFee' | 'photo' | 'form', string>>;
   saved?: boolean;
 };
 
@@ -39,9 +41,22 @@ export async function saveStore(_prev: StoreState, formData: FormData): Promise<
   const { name, cuisine, address, deliveryFee, accepting } = parsed.data;
   const { supabase, restaurant, branch } = await getMainBranch();
 
+  const photo = formData.get('photo');
+  let imageUrl: string | undefined;
+  if (hasPhoto(photo)) {
+    const up = await uploadPhoto(supabase, restaurant.id, photo);
+    if ('error' in up) return { errors: { photo: up.error } };
+    imageUrl = up.url;
+  }
+
   const r = await supabase
     .from('restaurants')
-    .update({ name, cuisine: cuisine || null, delivery_fee_cents: deliveryFee })
+    .update({
+      name,
+      cuisine: cuisine || null,
+      delivery_fee_cents: deliveryFee,
+      ...(imageUrl && { image_url: imageUrl }),
+    })
     .eq('id', restaurant.id);
   if (r.error) return { errors: { form: 'Could not save. Try again.' } };
 

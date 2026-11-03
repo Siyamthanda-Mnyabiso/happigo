@@ -2,6 +2,7 @@
 
 import { useActionState } from 'react';
 import { Button } from '@/components/ui/button';
+import { PhotoInput } from '@/components/photo-input';
 import { Field } from '@/components/ui/form';
 import { saveStore, type StoreState } from './actions';
 
@@ -11,6 +12,7 @@ type Props = {
   address: string;
   deliveryFee: string;
   accepting: boolean;
+  imageUrl: string | null;
 };
 
 export function StoreForm(p: Props) {
@@ -18,6 +20,7 @@ export function StoreForm(p: Props) {
   const e = state.errors ?? {};
   return (
     <form action={action} noValidate>
+      <PhotoInput name="photo" label="Cover photo" currentUrl={p.imageUrl} error={e.photo} />
       <Field label="Restaurant name" name="name" defaultValue={p.name} error={e.name} />
       <Field label="Cuisine" name="cuisine" defaultValue={p.cuisine} placeholder="Burgers" />
       <Field

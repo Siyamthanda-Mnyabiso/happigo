@@ -2,6 +2,7 @@
 
 import { useActionState } from 'react';
 import { Button } from '@/components/ui/button';
+import { PhotoInput } from '@/components/photo-input';
 import { Field } from '@/components/ui/form';
 import { CATEGORY_SUGGESTIONS } from '@/lib/menu';
 import type { ItemState } from './actions';
@@ -13,6 +14,7 @@ type Values = {
   description: string;
   available: boolean;
   popular: boolean;
+  imageUrl: string | null;
 };
 
 export function ItemForm({
@@ -28,6 +30,7 @@ export function ItemForm({
   const e = state.errors ?? {};
   return (
     <form action={run} noValidate>
+      <PhotoInput name="photo" label="Photo" currentUrl={values.imageUrl} error={e.photo} />
       <Field label="Item name" name="name" defaultValue={values.name} error={e.name} />
       <Field
         label="Price in rand"
