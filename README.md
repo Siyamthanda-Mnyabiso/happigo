@@ -16,6 +16,12 @@ Apply `supabase/migrations/*.sql` to your Supabase project (`supabase db push`).
 Orders come from the customer app, which doesn't exist yet. After onboarding a test partner, run
 `supabase/dev-seed.sql` in the Supabase SQL editor to add two sample new orders. It is never part of the migrations.
 
+## Trying the driver app
+
+Sign up at `/driver/join` (free). If Supabase email confirmation is on, confirm the email first. Then run
+`supabase/dev-seed.sql` and `supabase/dev-seed-driver.sql` in the SQL editor, go online, and the delivery appears.
+Driver pay is the delivery fee plus the tip.
+
 ## Checks
 
 `npm run format:check && npm run lint && npm run typecheck && npm test && npm run build`

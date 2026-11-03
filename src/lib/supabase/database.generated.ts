@@ -74,6 +74,8 @@ export type Database = {
           address: string | null;
           created_at: string;
           id: string;
+          lat: number | null;
+          lng: number | null;
           name: string;
           restaurant_id: string;
         };
@@ -82,6 +84,8 @@ export type Database = {
           address?: string | null;
           created_at?: string;
           id?: string;
+          lat?: number | null;
+          lng?: number | null;
           name: string;
           restaurant_id: string;
         };
@@ -90,6 +94,8 @@ export type Database = {
           address?: string | null;
           created_at?: string;
           id?: string;
+          lat?: number | null;
+          lng?: number | null;
           name?: string;
           restaurant_id?: string;
         };
@@ -99,6 +105,74 @@ export type Database = {
             columns: ['restaurant_id'];
             isOneToOne: false;
             referencedRelation: 'restaurants';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      delivery_declines: {
+        Row: {
+          driver_id: string;
+          order_id: string;
+        };
+        Insert: {
+          driver_id: string;
+          order_id: string;
+        };
+        Update: {
+          driver_id?: string;
+          order_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'delivery_declines_driver_id_fkey';
+            columns: ['driver_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'delivery_declines_order_id_fkey';
+            columns: ['order_id'];
+            isOneToOne: false;
+            referencedRelation: 'orders';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      driver_profiles: {
+        Row: {
+          created_at: string;
+          is_online: boolean;
+          phone: string | null;
+          user_id: string;
+          vehicle_model: string | null;
+          vehicle_plate: string | null;
+          vehicle_type: string | null;
+        };
+        Insert: {
+          created_at?: string;
+          is_online?: boolean;
+          phone?: string | null;
+          user_id: string;
+          vehicle_model?: string | null;
+          vehicle_plate?: string | null;
+          vehicle_type?: string | null;
+        };
+        Update: {
+          created_at?: string;
+          is_online?: boolean;
+          phone?: string | null;
+          user_id?: string;
+          vehicle_model?: string | null;
+          vehicle_plate?: string | null;
+          vehicle_type?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'driver_profiles_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: true;
+            referencedRelation: 'profiles';
             referencedColumns: ['id'];
           },
         ];
@@ -183,14 +257,23 @@ export type Database = {
           created_at: string;
           customer_id: string | null;
           customer_name: string | null;
+          delivered_at: string | null;
           delivery_address: string | null;
           delivery_fee_cents: number;
+          delivery_instructions: string | null;
+          delivery_lat: number | null;
+          delivery_lng: number | null;
+          driver_id: string | null;
+          driver_pay_cents: number | null;
           food_cents: number;
           id: string;
           note: string | null;
+          payment_method: string;
+          picked_up_at: string | null;
           prep_minutes: number | null;
           respond_by: string | null;
           status: Database['public']['Enums']['order_status'];
+          tip_cents: number;
           total_cents: number | null;
         };
         Insert: {
@@ -199,14 +282,23 @@ export type Database = {
           created_at?: string;
           customer_id?: string | null;
           customer_name?: string | null;
+          delivered_at?: string | null;
           delivery_address?: string | null;
           delivery_fee_cents: number;
+          delivery_instructions?: string | null;
+          delivery_lat?: number | null;
+          delivery_lng?: number | null;
+          driver_id?: string | null;
+          driver_pay_cents?: number | null;
           food_cents: number;
           id?: string;
           note?: string | null;
+          payment_method?: string;
+          picked_up_at?: string | null;
           prep_minutes?: number | null;
           respond_by?: string | null;
           status?: Database['public']['Enums']['order_status'];
+          tip_cents?: number;
           total_cents?: number | null;
         };
         Update: {
@@ -215,14 +307,23 @@ export type Database = {
           created_at?: string;
           customer_id?: string | null;
           customer_name?: string | null;
+          delivered_at?: string | null;
           delivery_address?: string | null;
           delivery_fee_cents?: number;
+          delivery_instructions?: string | null;
+          delivery_lat?: number | null;
+          delivery_lng?: number | null;
+          driver_id?: string | null;
+          driver_pay_cents?: number | null;
           food_cents?: number;
           id?: string;
           note?: string | null;
+          payment_method?: string;
+          picked_up_at?: string | null;
           prep_minutes?: number | null;
           respond_by?: string | null;
           status?: Database['public']['Enums']['order_status'];
+          tip_cents?: number;
           total_cents?: number | null;
         };
         Relationships: [
@@ -236,6 +337,13 @@ export type Database = {
           {
             foreignKeyName: 'orders_customer_id_fkey';
             columns: ['customer_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'orders_driver_id_fkey';
+            columns: ['driver_id'];
             isOneToOne: false;
             referencedRelation: 'profiles';
             referencedColumns: ['id'];
@@ -396,7 +504,23 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
-      [_ in never]: never;
+      accept_delivery: { Args: { oid: string }; Returns: undefined };
+      decline_delivery: { Args: { oid: string }; Returns: undefined };
+      driver_available_deliveries: {
+        Args: never;
+        Returns: {
+          distance_km: number;
+          driver_pay_cents: number;
+          item_count: number;
+          order_id: string;
+          pickup_address: string;
+          restaurant_name: string;
+          status: Database['public']['Enums']['order_status'];
+          tip_cents: number;
+        }[];
+      };
+      mark_delivered: { Args: { oid: string }; Returns: undefined };
+      mark_picked_up: { Args: { oid: string }; Returns: undefined };
     };
     Enums: {
       order_status:

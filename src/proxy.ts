@@ -30,4 +30,4 @@ export async function proxy(request: NextRequest) {
 }
 
 // Must be a literal for Next to read it. Add each role area from lib/routes.ts here.
-export const config = { matcher: ['/restaurant/:path*'] };
+export const config = { matcher: ['/restaurant/:path*', '/driver/:path*'] };

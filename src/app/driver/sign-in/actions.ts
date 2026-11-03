@@ -1,0 +1,26 @@
+'use server';
+
+import { redirect } from 'next/navigation';
+import { routes } from '@/lib/routes';
+import { createClient } from '@/lib/supabase/server';
+
+export type SignInState = { error?: string };
+
+export async function signIn(_prev: SignInState, formData: FormData): Promise<SignInState> {
+  const email = String(formData.get('email') ?? '').trim();
+  const password = String(formData.get('password') ?? '');
+  if (!email || !password) return { error: 'Enter your email and password' };
+  const supabase = await createClient();
+  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+  if (error || !data.user) return { error: 'Email or password is not right' };
+  const { data: driver } = await supabase
+    .from('driver_profiles')
+    .select('user_id')
+    .eq('user_id', data.user.id)
+    .maybeSingle();
+  if (!driver) {
+    await supabase.auth.signOut();
+    return { error: 'This is not a driver account. Join as a driver to get started.' };
+  }
+  redirect(routes.driver.home);
+}
