@@ -109,6 +109,38 @@ export type Database = {
           },
         ];
       };
+      customer_addresses: {
+        Row: {
+          address: string;
+          created_at: string;
+          id: string;
+          label: string;
+          user_id: string;
+        };
+        Insert: {
+          address: string;
+          created_at?: string;
+          id?: string;
+          label: string;
+          user_id: string;
+        };
+        Update: {
+          address?: string;
+          created_at?: string;
+          id?: string;
+          label?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'customer_addresses_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       delivery_declines: {
         Row: {
           driver_id: string;
@@ -275,6 +307,7 @@ export type Database = {
           id: string;
           note: string | null;
           payment_method: string;
+          payment_status: string;
           picked_up_at: string | null;
           prep_minutes: number | null;
           respond_by: string | null;
@@ -300,6 +333,7 @@ export type Database = {
           id?: string;
           note?: string | null;
           payment_method?: string;
+          payment_status?: string;
           picked_up_at?: string | null;
           prep_minutes?: number | null;
           respond_by?: string | null;
@@ -325,6 +359,7 @@ export type Database = {
           id?: string;
           note?: string | null;
           payment_method?: string;
+          payment_status?: string;
           picked_up_at?: string | null;
           prep_minutes?: number | null;
           respond_by?: string | null;
@@ -536,6 +571,29 @@ export type Database = {
       };
       mark_delivered: { Args: { oid: string }; Returns: undefined };
       mark_picked_up: { Args: { oid: string }; Returns: undefined };
+      order_tracking: {
+        Args: { oid: string };
+        Returns: {
+          driver_first_name: string;
+          status: Database['public']['Enums']['order_status'];
+          vehicle_model: string;
+          vehicle_plate: string;
+        }[];
+      };
+      place_order: {
+        Args: {
+          p_address: string;
+          p_branch: string;
+          p_instructions: string;
+          p_items: Json;
+          p_lat?: number;
+          p_lng?: number;
+          p_note: string;
+          p_payment: string;
+          p_tip: number;
+        };
+        Returns: string;
+      };
     };
     Enums: {
       order_status:

@@ -24,10 +24,20 @@ export async function proxy(request: NextRequest) {
   const area = areaFor(path);
   const isPublic = (area?.public as readonly string[] | undefined)?.includes(path);
   if (area && !data.user && !isPublic) {
-    return NextResponse.redirect(new URL(area.signIn, request.url));
+    const url = new URL(area.signIn, request.url);
+    url.searchParams.set('next', path);
+    return NextResponse.redirect(url);
   }
   return response;
 }
 
 // Must be a literal for Next to read it. Add each role area from lib/routes.ts here.
-export const config = { matcher: ['/restaurant/:path*', '/driver/:path*'] };
+export const config = {
+  matcher: [
+    '/restaurant/:path*',
+    '/driver/:path*',
+    '/orders/:path*',
+    '/checkout/:path*',
+    '/account/:path*',
+  ],
+};
